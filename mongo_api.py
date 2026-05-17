@@ -10,8 +10,9 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
 
 COMENTARIOS_COLLECTION_NAME = "Comentarios"
@@ -49,7 +50,7 @@ def post_comentario(bar_id: int, datos: dict):
         "bar_id": bar_id,
         "texto": datos["texto"],
         "autor": datos.get("autor", "Anonimo"),
-        "date": datetime.now().isoformat()
+        "date": datetime.now()
     }
 
     comentarios.insert_one(documento)
